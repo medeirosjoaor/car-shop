@@ -22,10 +22,7 @@ class CarODM extends AbstractODM<ICar> {
   }
 
   public async find(): Promise<ICar[] | []> {
-    return this.model.find(
-      {}, 
-      { id: '$_id', model: 1, year: 1, color: 1, status: 1, buyValue: 1, doorsQty: 1, seatsQty: 1 },
-    );
+    return this.model.find();
   }
 
   public async findById(id: string): Promise<ICar | null> {
@@ -33,10 +30,7 @@ class CarODM extends AbstractODM<ICar> {
       throw new Error('Invalid mongo id');
     }
 
-    return this.model.findById(
-      id, 
-      { id: '$_id', model: 1, year: 1, color: 1, status: 1, buyValue: 1, doorsQty: 1, seatsQty: 1 },
-    );
+    return this.model.findById(id);
   }
 
   public async findByIdAndUpdate(id: string, car: ICar): Promise<ICar | null> {
@@ -44,23 +38,7 @@ class CarODM extends AbstractODM<ICar> {
       throw new Error('Invalid mongo id');
     }
 
-    return this.model.findByIdAndUpdate(
-      id,
-      { ...car },
-      {
-        fields: {
-          id: '$_id',
-          model: 1,
-          year: 1,
-          color: 1,
-          status: 1,
-          buyValue: 1,
-          doorsQty: 1,
-          seatsQty: 1,
-        },
-        new: true,
-      },
-    );
+    return this.model.findByIdAndUpdate(id, { ...car }, { new: true });
   }
 }
 

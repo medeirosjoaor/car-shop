@@ -16,7 +16,7 @@ abstract class AbstractODM<T> {
   }
 
   public async find(): Promise<T[] | []> {
-    return this.model.find({});
+    return this.model.find();
   }
 
   public async findById(id: string): Promise<T | null> {

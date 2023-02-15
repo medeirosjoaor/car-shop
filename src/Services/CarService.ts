@@ -24,7 +24,7 @@ class CarService {
 
     const cars = await carODM.find();
 
-    return cars;
+    return cars.map((car) => this.createDomain(car));
   }
 
   public async findById(id: string) {
@@ -32,7 +32,7 @@ class CarService {
 
     const car = await carODM.findById(id);
 
-    return car;
+    return this.createDomain(car);
   }
 
   public async findByIdAndUpdate(id: string, car: ICar) {
@@ -40,7 +40,7 @@ class CarService {
 
     const updatedCar = await carODM.findByIdAndUpdate(id, car);
 
-    return updatedCar;
+    return this.createDomain(updatedCar);
   }
 }
 
