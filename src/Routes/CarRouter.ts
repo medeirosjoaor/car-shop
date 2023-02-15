@@ -20,4 +20,10 @@ router.post(
   (request, response, nextFunction) => new CarController(request, response, nextFunction).create(),
 );
 
+router.put(
+  '/cars/:id',
+  (request, response, nextFunction) => 
+    new CarController(request, response, nextFunction).findByIdAndUpdate(),
+);
+
 export default router;

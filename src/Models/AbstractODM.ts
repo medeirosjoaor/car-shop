@@ -1,4 +1,4 @@
-import { Model, Schema, isValidObjectId, model, models } from 'mongoose';
+import { Model, Schema, UpdateQuery, isValidObjectId, model, models } from 'mongoose';
 
 abstract class AbstractODM<T> {
   protected model: Model<T>;
@@ -25,6 +25,14 @@ abstract class AbstractODM<T> {
     }
 
     return this.model.findById(id);
+  }
+
+  public async findByIdAndUpdate(id: string, object: T): Promise<T | null> {
+    if (!isValidObjectId(id)) {
+      throw new Error('Invalid mongo id');
+    }
+
+    return this.model.findByIdAndUpdate(id, { ...object as UpdateQuery<T> }, { new: true });
   }
 }
 

@@ -56,8 +56,34 @@ class CarController {
       }
 
       return this.response.status(404).json({ message: 'Car not found' });
-    } catch ({ message }) {
-      return this.response.status(422).json({ message });
+    } catch (error) {
+      return this.response.status(422).json({ message: (error as Error).message });
+    }
+  }
+
+  public async findByIdAndUpdate() {
+    try {
+      const { id } = this.request.params;
+
+      const car: ICar = {
+        model: this.request.body.model,
+        year: this.request.body.year,
+        color: this.request.body.color,
+        status: this.request.body.status,
+        buyValue: this.request.body.buyValue,
+        doorsQty: this.request.body.doorsQty,
+        seatsQty: this.request.body.seatsQty,
+      };
+  
+      const updatedCar = await this.service.findByIdAndUpdate(id, car);
+  
+      if (updatedCar) {
+        return this.response.status(200).json(updatedCar);
+      }
+  
+      return this.response.status(404).json({ message: 'Car not found' });
+    } catch (error) {
+      return this.response.status(422).json({ message: (error as Error).message });
     }
   }
 }

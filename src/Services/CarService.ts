@@ -34,6 +34,14 @@ class CarService {
 
     return car;
   }
+
+  public async findByIdAndUpdate(id: string, car: ICar) {
+    const carODM = new CarODM();
+
+    const updatedCar = await carODM.findByIdAndUpdate(id, car);
+
+    return updatedCar;
+  }
 }
 
 export default CarService;
