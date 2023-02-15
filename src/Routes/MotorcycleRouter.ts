@@ -21,4 +21,10 @@ router.post(
     new MotorcycleController(request, response, nextFunction).create(),
 );
 
+router.put(
+  '/motorcycles/:id', 
+  (request, response, nextFunction) => 
+    new MotorcycleController(request, response, nextFunction).findByIdAndUpdate(),
+);
+
 export default router;

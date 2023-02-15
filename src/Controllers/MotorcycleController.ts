@@ -60,6 +60,32 @@ class MotorcycleController {
       return this.response.status(422).json({ message: (error as Error).message });
     }
   }
+
+  public async findByIdAndUpdate() {
+    try {
+      const { id } = this.request.params;
+
+      const motorcycle: IMotorcycle = {
+        model: this.request.body.model,
+        year: this.request.body.year,
+        color: this.request.body.color,
+        status: this.request.body.status,
+        buyValue: this.request.body.buyValue,
+        category: this.request.body.category,
+        engineCapacity: this.request.body.engineCapacity,
+      };
+
+      const updatedMotorcycle = await this.service.findByIdAndUpdate(id, motorcycle);
+
+      if (updatedMotorcycle) {
+        return this.response.status(200).json(updatedMotorcycle);
+      }
+
+      return this.response.status(404).json({ message: 'Motorcycle not found' });
+    } catch (error) {
+      return this.response.status(422).json({ message: (error as Error).message });
+    }
+  }
 }
 
 export default MotorcycleController;
