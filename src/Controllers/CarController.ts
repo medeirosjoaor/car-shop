@@ -34,6 +34,32 @@ class CarController {
       this.nextFunction(error as Error);
     }
   }
+
+  public async find() {
+    try {
+      const cars = await this.service.find();
+
+      return this.response.status(200).json(cars);
+    } catch (error) {
+      this.nextFunction(error as Error);
+    }
+  }
+
+  public async findById() {
+    try {
+      const { id } = this.request.params;
+
+      const car = await this.service.findById(id);
+
+      if (car) {
+        return this.response.status(200).json(car);
+      }
+
+      return this.response.status(404).json({ message: 'Car not found' });
+    } catch ({ message }) {
+      return this.response.status(422).json({ message });
+    }
+  }
 }
 
 export default CarController;

@@ -18,6 +18,22 @@ class CarService {
 
     return this.createDomain(newCar);
   }
+
+  public async find() {
+    const carODM = new CarODM();
+
+    const cars = await carODM.find();
+
+    return cars;
+  }
+
+  public async findById(id: string) {
+    const carODM = new CarODM();
+
+    const car = await carODM.findById(id);
+
+    return car;
+  }
 }
 
 export default CarService;
